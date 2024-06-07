@@ -3,9 +3,9 @@ import Logo from "../assets/logo-ZOT.png";
 import Google from "../assets/logo-google.png";
 import Input from "../components/Input/Input";
 import Label from "../components/Label/Label";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../services/FirebaseConfig";
-import { doc, getDoc } from "firebase/firestore";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { auth, db, provider } from "../services/FirebaseConfig";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { ThreeDots } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
 
@@ -36,6 +36,24 @@ export default function Login() {
             console.error(error);
             alert("Login failed with error: " + error);
         }
+    }
+
+    const handleGoogleLogin = async () => {
+        setIsLoading(true);
+        signInWithPopup(auth, provider).then(async (result) => {
+            if (result.user) {
+                await setDoc(doc(db, "users", result.user.uid), {
+                    name: result.user.displayName,
+                    email: result.user.email
+                });
+                setIsLoading(false);
+                navigate("/");
+            }
+            else {
+                setIsLoading(false);
+                alert("Login failed");
+            }
+        });
     }
 
     const fetchUser = async () => {
@@ -85,7 +103,7 @@ export default function Login() {
                     <p className="text-sm text-gray-600 mb-6">See what is going on with your business</p>
                 </div>
 
-                <button className="bg-white text-gray-800 py-2 px-4 rounded shadow mb-4 flex justify-center items-center w-full max-w-sm">
+                <button className="bg-white text-gray-800 py-2 px-4 rounded shadow mb-4 flex justify-center items-center w-full max-w-sm" onClick={handleGoogleLogin}>
                         <img src={Google} alt="Google Logo" className="w-5 h-5 mr-2" />
                         Continue with Google
                 </button>

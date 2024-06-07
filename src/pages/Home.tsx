@@ -13,6 +13,7 @@ export default function Home() {
     const fetchUser = async () => {
         setIsLoading(true);
         auth.onAuthStateChanged(async (user) => {
+            console.log(user)
             if (user) {
                 const docRef = doc(db, "users", user.uid);
                 const docSnap = await getDoc(docRef);
