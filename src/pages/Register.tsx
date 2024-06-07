@@ -5,7 +5,7 @@ import Input from "../components/Input/Input";
 import Label from "../components/Label/Label";
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, db, provider } from "../services/FirebaseConfig";
-import { setDoc, doc, getDoc } from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
 import { ThreeDots } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
 
@@ -42,7 +42,7 @@ export default function Register() {
             }
             setIsLoading(false);
             alert("Registration successful");
-            window.location.href = "/login";
+            navigate("/login");
         } catch (error) {
             console.error(error);
             setIsLoading(false);
@@ -67,31 +67,6 @@ export default function Register() {
             }
         });
     }
-
-    const fetchUser = async () => {
-        setIsLoading(true);
-        auth.onAuthStateChanged(async (user) => {
-            if (user) {
-                const docRef = doc(db, "users", user.uid);
-                const docSnap = await getDoc(docRef);
-                if (docSnap.exists()) {
-                    setIsLoading(false);
-                    navigate("/");
-                } else {
-                    setIsLoading(false);
-                    navigate("/register");
-                }
-            }
-            else {
-                setIsLoading(false);
-                navigate("/register");
-            }
-        })
-    };
-
-    React.useEffect(() => {
-        fetchUser();
-    }, []);
 
     return (
         <div className="flex h-screen">

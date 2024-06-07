@@ -5,7 +5,7 @@ import Input from "../components/Input/Input";
 import Label from "../components/Label/Label";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, db, provider } from "../services/FirebaseConfig";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { ThreeDots } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
 
@@ -55,33 +55,7 @@ export default function Login() {
             }
         });
     }
-
-    const fetchUser = async () => {
-        setIsLoading(true);
-        auth.onAuthStateChanged(async (user) => {
-            if (user) {
-                const docRef = doc(db, "users", user.uid);
-                const docSnap = await getDoc(docRef);
-                if (docSnap.exists()) {
-                    setIsLoading(false);
-                    navigate("/");
-                } else {
-                    setIsLoading(false);
-                    navigate("/login");
-                }
-            }
-            else {
-                setIsLoading(false);
-                navigate("/login");
-            }
-        })
-    };
-
-    React.useEffect(() => {
-        fetchUser();
-    }, []);
-
-
+    
     return (
         <div className="flex h-screen">
             <div className="w-3/4 bg-custom-teal flex flex-col justify-center items-center text-white p-8">
