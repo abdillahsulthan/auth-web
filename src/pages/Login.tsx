@@ -53,42 +53,50 @@ export default function Login() {
                 setIsLoading(false);
                 alert("Login failed");
             }
+        }).catch((error) => {
+            setIsLoading(false);
+            if (error.code === 'auth/popup-closed-by-user') {
+                alert("Popup closed by user before completing sign-in.");
+            } else {
+                console.error(error);
+                alert("Login failed with error: " + error.message);
+            }
         });
     }
     
     return (
         <div className="flex h-screen">
-            <div className="w-3/4 bg-custom-teal flex flex-col justify-center items-center text-white p-8">
+            <div className="hidden lg:flex lg:w-3/4 bg-custom-teal flex-col justify-center items-center text-white p-8">
                 <h1 className="text-5xl font-bold text-center mt-64 px-40 tracking-wide">
-                Your <span className="italic">Trusted</span> Digital Transformation Partner
+                    Your <span className="italic">Trusted</span> Digital Transformation Partner
                 </h1>
                 <p className="text-md italic text-center mt-auto">
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt."
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt."
                 </p>
                 <p className="mt-2 text-sm">
-                John Doe, VP of A Great Company
+                    John Doe, VP of A Great Company
                 </p>
             </div>
 
-            <div className="w-1/2 flex flex-col justify-center items-center p-8 mt-36">
-                <div className="item-start w-full max-w-sm">
+            <div className="flex flex-col justify-center items-center p-8 lg:mt-36 md:w-1/2 w-full mt-0 mx-auto">
+                <div className="item-start w-full max-w-xs md:max-w-sm">
                     <img src={Logo} alt="Logo" className="mb-6 w-28 h-auto" />
-                    <h2 className="text-4xl font-medium mb-2">Login to your Account</h2>
+                    <h2 className="text-2xl font-medium mb-2 md:text-4xl">Login to your Account</h2>
                     <p className="text-sm text-gray-600 mb-6">See what is going on with your business</p>
                 </div>
 
-                <button className="bg-white text-gray-800 py-2 px-4 rounded shadow mb-4 flex justify-center items-center w-full max-w-sm" onClick={handleGoogleLogin}>
+                <button className="bg-white text-gray-800 py-2 px-4 rounded shadow mb-4 flex justify-center items-center w-full max-w-xs md:max-w-sm" onClick={handleGoogleLogin}>
                         <img src={Google} alt="Google Logo" className="w-5 h-5 mr-2" />
                         Continue with Google
                 </button>
 
-                <div className="flex items-center w-full max-w-sm my-4">
+                <div className="flex items-center w-full max-w-xs md:max-w-sm my-4">
                     <div className="border-t border-gray-300 flex-grow mr-3"></div>
                     <p className="text-gray-400 text-xs">or Sign in with Email</p>
                     <div className="border-t border-gray-300 flex-grow ml-3"></div>
                 </div>
 
-                <form className="w-full max-w-sm">
+                <form className="w-full max-w-xs md:max-w-sm">
                     <div className="mb-4">
                         <Label htmlFor="email" text="Email" />
                         <Input id="email" type="email" placeholder="somebody@example.com" onChange={handleEmailhange}/>

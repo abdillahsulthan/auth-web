@@ -45,26 +45,26 @@ export default function Home() {
     return (
         <div className="flex h-screen">
             <div className="w-full bg-white flex flex-col justify-center items-center text-black p-8">
-                <img src={Logo} alt="Logo" className="w-80 h-auto" />
+                <img src={Logo} alt="Logo" className="w-40 h-auto md:w-80" />
 
-                <h1 className="text-5xl font-bold text-center tracking-wide">
+                <h1 className="text-3xl md:text-5xl font-bold text-center tracking-wide">
                     Hi, {user?.name}!
                 </h1>
-                <h1 className="text-5xl font-semibold text-center mt-4 tracking-wide">
+                <h1 className="text-3xl md:text-5xl font-semibold text-center mt-4 tracking-wide">
                     Welcome to Zero One Group
                 </h1>
 
                 <button
-                    className="bg-gray-800 hover:bg-gray-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-1/4 mt-10 text-white"
+                    className="bg-gray-800 hover:bg-gray-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-3/4 md:w-1/4 mt-10 text-white"
                     type="button" onClick={onLogout}>
                     Logout
                 </button>
 
-                <p className="text-md italic text-center mt-auto">
-                "If you want live a happy life, tie it to a goal, not to people or things."
+                <p className="text-sm md:text-md italic text-center mt-10 md:mt-auto">
+                    "If you want to live a happy life, tie it to a goal, not to people or things."
                 </p>
-                <p className="mt-2 text-sm">
-                Albert Einstein
+                <p className="mt-2 text-xs md:text-sm">
+                    Albert Einstein
                 </p>
             </div>
 
@@ -73,7 +73,6 @@ export default function Home() {
                     <ThreeDots color="#000000" height={80} width={80} />
                 </div>
             )}
-
         </div>
     );
 }
