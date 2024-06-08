@@ -24,7 +24,7 @@ export default function Home() {
             }
             else {
                 setIsLoading(false);
-                navigate("/login");
+                navigate("/auth");
             }
         })
     };
@@ -32,7 +32,7 @@ export default function Home() {
     const onLogout = async () => {
         try {
             await auth.signOut();
-            navigate("/login");
+            navigate("/auth");
         } catch (error) {
             console.error(error);
         }
