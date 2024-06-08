@@ -49,7 +49,7 @@ export default function Auth() {
                     });
                 }
                 alert("Registration successful");
-                navigate("/login");
+                navigate("/auth");
             } else {
                 await signInWithEmailAndPassword(auth, email, password);
                 alert("Login successful");
